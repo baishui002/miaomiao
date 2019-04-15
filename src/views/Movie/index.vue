@@ -48,8 +48,12 @@ export default {
   width: 100%;
   height: 100%;
   .content {
+     width: 100%;
+    flex: 1;
     position: relative;
     margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
     .movie-menu {
       width: 100%;
       height: 45px;

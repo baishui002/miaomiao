@@ -72,14 +72,75 @@
 </template>
 
 <script>
-import BScroll from 'better-scroll'
+import BScroll from "better-scroll";
+import { truncate } from 'fs';
 
 export default {
   name: "City",
   data() {
-    return {};
+    return {
+        //cityList: [ { index : 'A' , list : [{ nm : '阿城' , id : 123 }] } ]
+        hotCity:[],
+        cityList: []
+    };
   },
-  methods: {}
+  created(){
+      this.getCityList()
+  },
+  methods: {
+      getCityList(){
+          this.axios.get('/api/cityList').then((res)=>{
+              if(res.data.status === 0 ){
+                  var cities = res.data.data.cities;
+                  
+                  var {hotCity, cityList} = this.formatCityList(cities)
+                  console.log(hotCity)
+                  console.log(cityList)
+              }
+          })
+      },
+      formatCityList(cities){
+          var cityList = []
+          var hotCity = []
+
+          for(var i=0;i< cities.length;i++){
+
+              //热门城市
+              if(cities[i].isHot === 1){
+                  hotCity.push(cities[i])
+              }
+            
+                // 所有城市
+                //cityList: [ { index : 'A' , list : [{ nm : '阿城' , id : 123 }] } ]
+                var firstWorld = cities[i].py.slice(0, 1).toUpperCase();
+                // 如果已存在，则找到对应的index后再插入数据
+                if(toCom(firstWorld)){  
+                    cityList.some(item=>{
+                        if(item.index === firstWorld){
+                            item.list.push({cname: cities[i].nm, id: cities[i].id})
+                            return true
+                        }
+                    })
+                } else{
+                    cityList.push({index: firstWorld, list: [{cname: cities[i].nm,id:cities[i].id}]})
+                }
+
+          }
+
+        function toCom(firstWorld){
+            return cityList.some(item=>{
+               return firstWorld === item.inde
+            })
+        }
+
+        return {
+            hotCity,
+            cityList
+        }
+          
+      }
+
+  }
 };
 </script>
 
@@ -87,15 +148,16 @@ export default {
 .city-con {
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  background: #fff5f0;
+
   position: absolute;
   margin-top: 45px;
   top: 0;
-
+  bottom: 0;
   .city-list {
     height: 100%;
     flex: 1;
+    background: #fff5f0;
+    overflow: auto;
     .city-h3 {
       width: 100%;
       line-height: 30px;
