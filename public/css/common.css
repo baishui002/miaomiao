@@ -4,6 +4,13 @@ img{ display: block;}
 html,body{ height:100%;}
 .clearfix:after{ content:""; display: block; clear:both;}
 
+html {
+    box-sizing: border-box;
+  }
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+  
 #main{ height: 100%; display: flex; flex-direction:column;}
 #content{ flex:1; overflow:auto; margin-bottom: 50px; position: relative; display: flex; flex-direction:column;}
 
