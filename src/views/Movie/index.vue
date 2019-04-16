@@ -29,7 +29,6 @@
 import Header from "@/components/Header";
 import TabBar from "@/components/TabBar";
 
-
 export default {
   name: "Movie",
   data() {
@@ -48,7 +47,7 @@ export default {
   width: 100%;
   height: 100%;
   .content {
-     width: 100%;
+    width: 100%;
     flex: 1;
     position: relative;
     margin-bottom: 50px;
@@ -71,6 +70,7 @@ export default {
       }
       .router-link-active {
         border-bottom: 2px solid red;
+        color: red;
       }
       .city_name {
         margin-left: 20px;
