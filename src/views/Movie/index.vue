@@ -1,6 +1,7 @@
 <template>
   <div id="main">
     <Header title="喵喵电影"/>
+
     <div class="content">
       <div class="movie-menu">
         <router-link tag="div" :to="{name: 'city'}" class="city_name">

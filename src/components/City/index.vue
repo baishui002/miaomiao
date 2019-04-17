@@ -1,6 +1,7 @@
 <template>
     <div class="city-con wrapper" >
-        <div class="city-list" ref="city_list">
+        <Loading v-if="isLoading" />
+        <div v-else class="city-list" ref="city_list">
             <div>
                 <div class="hot-city">
                     <h3 class="city-h3">热门城市</h3>
@@ -38,7 +39,8 @@ export default {
         return {
             //cityList: [ { index : 'A' , list : [{ nm : '阿城' , id : 123 }] } ]
             hotCity: [],
-            cityList: []
+            cityList: [],
+            isLoading: true
         };
     },
     created() {
@@ -55,6 +57,7 @@ export default {
         getCityList() {
             this.axios.get("/api/cityList").then(res => {
                 if (res.data.status === 0) {
+                    this.isLoading = false;
                     var cities = res.data.data.cities;
                     var { hotCity, cityList } = this.formatCityList(cities);
 
