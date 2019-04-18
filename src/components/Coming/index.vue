@@ -1,6 +1,6 @@
 <template>
     <div class="coming-con">
-           <Loading v-if="isLoading" />
+        <Loading v-if="isLoading" />
         <ul v-else>
             <li v-for="item in comingList" :key="item.id">
                 <div class="movie-img">
@@ -48,13 +48,14 @@ export default {
 
 <style lang="scss" scoped>
 .coming-con {
+    flex:1;
     width: 100%;
-    display: flex;
-    flex-direction: column;
+    // display: flex;
+    // flex-direction: column;
     margin-top: 45px;
     position: absolute;
     top: 0;
-    bottom: 0;
+    // bottom: 0;
     ul {
         height: 100%;
         display: flex;

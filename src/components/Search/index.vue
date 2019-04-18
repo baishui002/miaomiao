@@ -42,7 +42,7 @@ export default {
     },
     methods: {
         getSearchList() {
-            this.axios.get("/api/searchList?cityId=30&kw=1").then(res => {
+            this.axios.get("/api/searchList?cityId=31&kw=2").then(res => {
                 if (res.data.status === 0) {
                     this.isLoading = false;
                     this.searchList = res.data.data.movies.list;
@@ -64,19 +64,23 @@ export default {
 
     .input-search {
         width: 100%;
-        height: 40px;
         position: relative;
-        padding: 5px 15px;
+        padding: 10px;
+        background: #f5f5f5;
         input {
             width: 100%;
+            height: 25px;
+            margin-top: 7px;
             padding-left: 30px;
-            border: none;
+            border: 1px solid #ccc;
+            border-radius: 5px;
             outline: none;
+            background: #fff;
         }
         i {
             font-size: 16px;
             position: absolute;
-            top: 10px;
+            top: 20px;
             left: 15px;
         }
     }

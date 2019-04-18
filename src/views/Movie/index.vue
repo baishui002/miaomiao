@@ -45,8 +45,7 @@ export default {
 
 <style lang="scss" scoped>
 #main {
-  width: 100%;
-  height: 100%;
+
   .content {
     width: 100%;
     flex: 1;

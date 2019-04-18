@@ -1,7 +1,5 @@
 <template>
-  <div class="loading-con">
-      <div class="loader"></div>
-  </div>
+    <div class="loader"></div>
 </template>
 
 <script>
@@ -122,10 +120,10 @@ $offset: $lat - $thickness;
  * Attempt to center the whole thing!
  */
 
-html,
-body {
-  height: 100%;
-}
+// html,
+// body {
+//   height: 100%;
+// }
 
 .loader {
   position: absolute;

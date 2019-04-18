@@ -18,37 +18,7 @@
                 </div>
                 <div class="btn-buy">购票</div>
            </li>
-             <!-- <li>
-                <div class="movie-img">
-                    <img src="@/assets/12.jpg" alt>
-                </div>
-                <div class="movie-info">
-                    <h1>反贪风暴4</h1>
-                    <img class="show-img" src="@/assets/imax.png" alt>
-                    <p>
-                        观众评
-                        <span class="gold">9.1</span>
-                    </p>
-                    <p>主演：古天乐，古天乐， 古天乐</p>
-                    <p>今天2342家影院放映2342场</p>
-                </div>
-                <div class="btn-buy">购票</div>
-            </li>
-            <li>
-                <div class="movie-img">
-                    <img src="@/assets/12.jpg" alt>
-                </div>
-                <div class="movie-info">
-                    <h1>反贪风暴4发送到发斯蒂芬</h1>
-                    <p>
-                        观众评
-                        <span class="gold">9.1</span>
-                    </p>
-                    <p>主演：古天乐，古天乐， 古天乐</p>
-                    <p>今天2342家影院放映2342场</p>
-                </div>
-                <div class="btn-buy">购票</div>
-            </li> -->
+ 
         </ul>
     </div>
 </template>
@@ -87,7 +57,7 @@ export default {
     margin-top: 45px;
     position: absolute;
     top: 0;
-    bottom: 0;
+    // bottom: 0;
     ul {
         height: 100%;
         display: flex;

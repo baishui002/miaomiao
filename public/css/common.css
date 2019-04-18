@@ -4,7 +4,9 @@ img{ display: block;}
 html,body{ height:100%;}
 .clearfix:after{ content:""; display: block; clear:both;}
 
-html {
+html,
+body {
+    height: 100%;
     box-sizing: border-box;
   }
   *, *:before, *:after {
