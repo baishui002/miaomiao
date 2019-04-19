@@ -1,12 +1,16 @@
 <template>
-    <div class="city-con wrapper" >
-        <Loading v-if="isLoading" />
+    <div class="city-con wrapper">
+        <Loading v-if="isLoading"/>
         <div v-else class="city-list" ref="city_list">
             <div>
                 <div class="hot-city">
                     <h3 class="city-h3">热门城市</h3>
                     <ul>
-                        <li v-for="item in hotCity" :key="item.id"  @tap="handleToCity(item.nm , item.id)">{{item.nm}}</li>
+                        <li
+                            v-for="item in hotCity"
+                            :key="item.id"
+                            @tap="handleToCity(item.nm , item.id)"
+                        >{{item.nm}}</li>
                         <!-- <li>北京</li> -->
                     </ul>
                 </div>
@@ -14,7 +18,11 @@
                     <div class="city-items" v-for="item in cityList" :key="item.index">
                         <h3 class="city-h3">{{item.index}}</h3>
                         <ul>
-                            <li v-for="city in item.list" :key="city.id"  @tap="handleToCity(city.nm , city.id)">{{city.nm}}</li>
+                            <li
+                                v-for="city in item.list"
+                                :key="city.id"
+                                @tap="handleToCity(city.nm , city.id)"
+                            >{{city.nm}}</li>
                             <!-- <li>北京</li> -->
                         </ul>
                     </div>
@@ -23,7 +31,11 @@
         </div>
         <div class="city-index">
             <ul>
-                <li v-for="(item, index) in cityList" :key="item.index" @touchstart="handleToIndex(index)">{{item.index}}</li>
+                <li
+                    v-for="(item, index) in cityList"
+                    :key="item.index"
+                    @touchstart="handleToIndex(index)"
+                >{{item.index}}</li>
                 <!-- <li>A</li>> -->
             </ul>
         </div>
@@ -46,13 +58,7 @@ export default {
     created() {
         this.getCityList();
     },
-    mounted() {
-        scroll = new BScroll(this.$refs.city_list, {
-            tap: true,
-            probeType: 1
-        });
-        this.scroll = scroll;
-    },
+    mounted() {},
     methods: {
         getCityList() {
             this.axios.get("/api/cityList").then(res => {
@@ -63,6 +69,14 @@ export default {
 
                     this.hotCity = hotCity;
                     this.cityList = cityList;
+
+                    this.$nextTick(() => {
+                        scroll = new BScroll(this.$refs.city_list, {
+                            tap: true,
+                            probeType: 1
+                        });
+                        this.scroll = scroll;
+                    });
                 }
             });
         },
@@ -120,18 +134,16 @@ export default {
                 cityList
             };
         },
-        handleToIndex(index){
-            console.log(index)
-            
-            var h3 = this.$refs.city_sort.getElementsByTagName('h3');
-            console.log(h3[index].offsetTop)
-            this.scroll.scrollTo(0, -h3[index].offsetTop)
+        handleToIndex(index) {
+            console.log(index);
 
+            var h3 = this.$refs.city_sort.getElementsByTagName("h3");
+            console.log(h3[index].offsetTop);
+            this.scroll.scrollTo(0, -h3[index].offsetTop);
         },
-        handleToCity(nm, id){
-            console.log('aa')
-            console.log(nm, id)
-
+        handleToCity(nm, id) {
+            console.log("aa");
+            console.log(nm, id);
         }
     }
 };

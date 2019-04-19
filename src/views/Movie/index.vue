@@ -63,7 +63,7 @@ export default {
       box-sizing: border-box;
       background: #fff;
       // position: relative;
-      // z-index: 10;
+      z-index: 10;
 
       div {
         line-height: 45px;

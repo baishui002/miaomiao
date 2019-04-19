@@ -57,7 +57,7 @@ export default {
     margin-top: 45px;
     position: absolute;
     top: 0;
-    // bottom: 0;
+    bottom: 0;
     ul {
         height: 100%;
         display: flex;
