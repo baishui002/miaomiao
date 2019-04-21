@@ -34,7 +34,7 @@ export default {
         return {
             searchList: [],
             isLoading: true,
-            keyWord: ""
+            keyWord: "a"
         };
     },
     created() {
@@ -42,11 +42,11 @@ export default {
     },
     methods: {
         getSearchList() {
-            this.axios.get("/api/searchList?cityId=31&kw=2").then(res => {
+            var cityId = this.$store.state.city.id;
+            this.axios.get("/api/searchList?cityId="+cityId+"&kw="+this.keyWord).then(res => {
                 if (res.data.status === 0) {
                     this.isLoading = false;
                     this.searchList = res.data.data.movies.list;
-                    console.log(this.searchList);
                 }
             });
         }

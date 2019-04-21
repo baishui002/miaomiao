@@ -5,7 +5,7 @@
     <div class="content">
       <div class="movie-menu">
         <router-link tag="div" :to="{name: 'city'}" class="city_name">
-          <span>北京</span>
+          <span>{{$store.state.city.nm}}</span>
           <i class="iconfont icon-lower-triangle"></i>
         </router-link>
         <router-link tag="div" :to="{name: 'playing'}" class="playing">
@@ -18,8 +18,9 @@
           <i class="iconfont icon-sousuo"></i>
         </router-link>
       </div>
-
-      <router-view/>
+      <keep-alive>
+        <router-view/>
+      </keep-alive>
     </div>
 
     <TabBar></TabBar>
@@ -29,13 +30,47 @@
 <script>
 import Header from "@/components/Header";
 import TabBar from "@/components/TabBar";
+import { messageBox } from "@/components/JS";
+import { setTimeout } from "timers";
 
 export default {
   name: "Movie",
   data() {
     return {};
   },
-  methods: {},
+  mounted() {
+    this.getLocalCity();
+  },
+  methods: {
+    getLocalCity() {
+      var cityId = this.$store.state.city.id;
+
+      setTimeout(() => {
+        this.axios.get("/api/getLocation").then(res => {
+          if (res.data.status === 0) {
+            var cityInfo = res.data.data;
+            if (cityId == cityInfo.id) {
+              return;
+            } else {
+              messageBox({
+                title: "定位",
+                city: cityInfo.nm,
+                cancel: "取消",
+                ok: "切换城市",
+                handleOk() {
+                  window.localStorage.setItem(
+                    "cityInfo",
+                    JSON.stringify(cityInfo)
+                  );
+                  window.location.reload();
+                }
+              });
+            }
+          }
+        });
+      }, 3000);
+    }
+  },
   components: {
     Header,
     TabBar
@@ -45,7 +80,6 @@ export default {
 
 <style lang="scss" scoped>
 #main {
-
   .content {
     width: 100%;
     flex: 1;
