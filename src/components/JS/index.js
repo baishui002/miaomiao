@@ -30,6 +30,7 @@ export var messageBox = (function(){
             },
             methods: {
                 handleCancel(){
+                    //call~~~
                     defaults.handleCancel && defaults.handleCancel.call(this);
                     document.body.removeChild(vm.$el);
                 },

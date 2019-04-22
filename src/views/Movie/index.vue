@@ -58,10 +58,8 @@ export default {
                 cancel: "取消",
                 ok: "切换城市",
                 handleOk() {
-                  window.localStorage.setItem(
-                    "cityInfo",
-                    JSON.stringify(cityInfo)
-                  );
+                  window.localStorage.setItem("cityName",cityInfo.nm);
+                  window.localStorage.setItem("cityId",cityInfo.id);
                   window.location.reload();
                 }
               });

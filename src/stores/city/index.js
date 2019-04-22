@@ -1,8 +1,8 @@
 import { deflate } from "zlib";
 
 const state = {
-    nm: JSON.parse(window.localStorage.getItem('cityInfo')).nm || '北京',
-    id: JSON.parse(window.localStorage.getItem('cityInfo')).id || 1
+    nm: window.localStorage.getItem('cityName') || '北京',
+    id: window.localStorage.getItem('cityId') || 1
 };
 const acitons = {
 
@@ -12,7 +12,8 @@ const mutations = {
         state.nm = payload.nm;
         state.id = payload.id;
 
-        window.localStorage.setItem('cityInfo', JSON.stringify({nm: payload.nm, id: payload.id}))
+        window.localStorage.setItem('cityName', payload.nm)
+        window.localStorage.setItem('cityId', payload.id)
     }
 };
 
