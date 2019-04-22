@@ -1,17 +1,17 @@
 <template>
-    <div>
+    <div id="main">
         <Header title="喵喵影院"></Header>
-        <div id="content">
+        <div class="content">
             <div class="cinema-menu">
-                <div>
+                <div class="menu-item">
                     <span>全城</span>
                     <i class="iconfont icon-lower-triangle"></i>
                 </div>
-                <div>
+                <div class="menu-item">
                     <span>品牌</span>
                     <i class="iconfont icon-lower-triangle"></i>
                 </div>
-                <div>
+                <div class="menu-item">
                     <span>特色</span>
                     <i class="iconfont icon-lower-triangle"></i>
                 </div>
@@ -129,13 +129,35 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.cinema-menu {
+#main {
+  .content {
+    width: 100%;
+    flex: 1;
+    position: relative;
+    left: 0;
+    top: 0;
+    margin-bottom: 50px;
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 45px;
-    border-bottom: 1px solid #ccc;
-    // z-index: 11;
+    flex-direction: column;
+  }
+}
+.cinema-menu {
+     width: 100%;
+      height: 45px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #eee;
+      box-sizing: border-box;
+      background: #fff;
+      // position: relative;
+      z-index: 10;
+    .menu-item {
+        line-height: 45px;
+        span {
+            height: 20px;
+        }
+    }
 }
 
 .cinema-body {
