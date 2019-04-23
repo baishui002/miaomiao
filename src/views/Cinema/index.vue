@@ -16,8 +16,10 @@
                     <i class="iconfont icon-lower-triangle"></i>
                 </div>
             </div>
-            <BScroller>
+            <Loading v-if="isLoading" />
+            <BScroller v-else :handleToScroll="handleToScroll" :handleToTouchEnd="handleToTouchEnd">
                 <div class="cinema-body">
+                    <div class="pulldown">{{pullDownMsg}}</div>
                     <div class="cinema-item" v-for="item in cinemaList" :key="item.id">
                         <div class="body-left">
                             <p>
@@ -54,7 +56,9 @@ export default {
     data() {
         return {
             cinemaList: [],
-            preCityId: -1
+            preCityId: -1,
+            isLoading: true,
+            pullDownMsg: ''
         };
     },
     activated() {
@@ -64,14 +68,35 @@ export default {
         getCinemaList() {
             var cityId = this.$store.state.city.id;
             if (this.preCityId === cityId) {
+                this.isLoading = false;
                 return;
             }
             this.preCityId = cityId;
             this.axios.get("/api/cinemaList?cityId=" + cityId).then(res => {
                 if (res.data.status === 0) {
+                    this.isLoading = false;
                     this.cinemaList = res.data.data.cinemas;
                 }
             });
+        },
+        handleToScroll(pos){
+            if (pos.y > 30) {
+                this.pullDownMsg = '正在更新中';
+                
+            }
+        },
+        handleToTouchEnd(pos){
+            if (pos.y > 30) {
+                this.axios.get("/api/cinemaList?cityId=" + this.$store.state.city.id).then(res => {
+                if (res.data.status === 0) {
+                    this.pullDownMsg = '更新完成';
+                    setTimeout(() => {
+                        this.pullDownMsg = '';
+                        this.cinemaList = res.data.data.cinemas;
+                    }, 2000);
+                }
+            });
+            }
         }
     },
     components: {
@@ -145,7 +170,7 @@ export default {
      width: 100%;
       height: 45px;
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
       align-items: center;
       border-bottom: 1px solid #eee;
       box-sizing: border-box;
@@ -163,6 +188,9 @@ export default {
 .cinema-body {
     flex:1;
     padding: 0 10px;
+    .pulldown {
+        font-size: 16px;
+    }
 }
 .cinema-item {
     display: flex;

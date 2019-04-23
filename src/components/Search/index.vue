@@ -1,11 +1,11 @@
 <template>
     <div class="search-con">
-        <Loading v-if="isLoading"/>
-        <div v-else class="input-search">
+        <div class="input-search">
             <input type="search" v-model="keyWord">
             <i class="iconfont icon-sousuo"></i>
         </div>
-        <div class="search-list">
+        <Loading v-if="isLoading"/>
+        <div v-else class="search-list">
             <h3>电影/电视剧/综艺</h3>
             <ul>
                 <li v-for="item in searchList" :key="item.id">
@@ -28,27 +28,53 @@
 </template>
 
 <script>
+import { clearTimeout } from 'timers';
 export default {
     name: "",
     data() {
         return {
             searchList: [],
-            isLoading: true,
-            keyWord: "a"
+            isLoading: false,
+            keyWord: "",
+            timer: null
         };
     },
     created() {
-        this.getSearchList();
+        // this.getSearchList();
     },
     methods: {
-        getSearchList() {
+        getSearchList(word) {
+            this.isLoading = true;
             var cityId = this.$store.state.city.id;
-            this.axios.get("/api/searchList?cityId="+cityId+"&kw="+this.keyWord).then(res => {
-                if (res.data.status === 0) {
-                    this.isLoading = false;
-                    this.searchList = res.data.data.movies.list;
-                }
-            });
+            this.axios
+                .get("/api/searchList?cityId=" + cityId + "&kw=" + word)
+                .then(res => {
+                    if (res.data.status === 0) {
+                        this.isLoading = false;
+                        this.searchList = res.data.data.movies.list;
+                    }
+                })
+                .catch( err => {
+                    console.log('err:',err)
+                })
+        }
+    },
+    watch: {
+        keyWord(newWord, oldWord) {
+            if (newWord.trim().lenght === 0) return;
+
+            if(this.timer) {
+                console.log('timer:', this.timer)
+                clearTimeout(this.timer);
+            }
+            if(newWord) {
+                this.timer = setTimeout(() => {
+                    this.getSearchList(newWord);
+                }, 300);
+            } else {
+                this.getSearchList(newWord)
+            }
+            
         }
     }
 };
