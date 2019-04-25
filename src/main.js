@@ -8,6 +8,7 @@ import axios from 'axios'
 Vue.config.productionTip = false
 Vue.prototype.axios = axios
 
+
 //全局filter
 Vue.filter('imgSetWH', (url, arg)=>{
     return url.replace(/w\.h/, arg)

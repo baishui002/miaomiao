@@ -28,7 +28,8 @@
 </template>
 
 <script>
-import { clearTimeout } from 'timers';
+import { request } from "http";
+
 export default {
     name: "",
     data() {
@@ -53,28 +54,54 @@ export default {
                         this.isLoading = false;
                         this.searchList = res.data.data.movies.list;
                     }
-                })
-                .catch( err => {
-                    console.log('err:',err)
-                })
+                });
+
+            // 取消频繁请求
+            // this.cancelRequest();
+            // this.axios
+            //     .get("/api/searchList?cityId=" + cityId + "&kw=" + word, {
+            //         cancelToken: new this.axios.CancelToken(c => {
+            //             this.source = c;
+            //         })
+            //     })
+            //     .then(res => {
+            //         if (res.data.status === 0) {
+            //             this.isLoading = false;
+            //             this.searchList = res.data.data.movies.list;
+            //         }
+            //     })
+            //     .catch(err => {
+            //         if (this.axios.isCancel(err)) {
+            //             console.log("Request canceld", err.message);
+            //         } else {
+            //             console.log("err:", err);
+            //         }
+            //     });
+        },
+        cancelRequest() {
+            if (typeof this.source === "function") {
+                console.log("zhongzhiqingqiu");
+                this.isLoading = false;
+                this.source("终止请求");
+            }
         }
     },
     watch: {
         keyWord(newWord, oldWord) {
-            if (newWord.trim().lenght === 0) return;
+            if (newWord.replace(/\s/g, "").length === 0) return;
 
+            //节流
             if(this.timer) {
-                console.log('timer:', this.timer)
                 clearTimeout(this.timer);
             }
             if(newWord) {
                 this.timer = setTimeout(() => {
                     this.getSearchList(newWord);
-                }, 300);
+                }, 800);
             } else {
                 this.getSearchList(newWord)
             }
-            
+            // this.getSearchList(newWord);
         }
     }
 };
